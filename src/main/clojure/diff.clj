@@ -20,8 +20,18 @@
         
 
 (defn demo []
-    (let [left [2 3 4 5 6]
+    (let [left [{:k 2} {:k 3} {:k 4} {:k 5} {:k 6}]
           right [4 5 6 7 8]
-          fl identity
+          fl :k
           fr identity]
         (diff left right fl fr)))
+
+;Todo: onlyleft  onlyright
+; user=> (pprint (demo))
+; {:both
+;  ({:leftnode {:k 4}, :rightnode 4}
+;   {:leftnode {:k 5}, :rightnode 5}
+;   {:leftnode {:k 6}, :rightnode 6}),
+;  :onlyleft (),
+;  :onlyright ()}
+; nil
