@@ -26,7 +26,7 @@
           right [4 5 6 7 8]
           fl :k
           fr identity]
-        (diff left right fl fr )))
+        (diff left right fl fr)))
 
 ; user=> (pprint (demo))
 ; {:both
