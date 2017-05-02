@@ -1,17 +1,16 @@
 (println "diff algorithms in clojure")
-(defn doWeTheSame [me you fm fy] 
-    (= (fm me) (fy you)))
 
 (defn diff 
  ([left right fl fr]
   (let 
-    [both 
+    [doWeTheSame? (fn [me you fnme fnyou] (= (fnme me) (fnyou you)))
+     both 
      (filter (comp not nil?) 
        (flatten 
          (map (fn [leftnode] 
                (map 
                  (fn [rightnode] 
-                  (if (doWeTheSame leftnode rightnode fl fr) {:leftnode leftnode :rightnode rightnode}))
+                  (if (doWeTheSame? leftnode rightnode fl fr) {:leftnode leftnode :rightnode rightnode}))
                  right))
              left)))
     
