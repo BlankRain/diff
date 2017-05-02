@@ -2,7 +2,8 @@
 (defn doWeTheSame [me you fm fy] 
     (= (fm me) (fy you)))
 
-(defn diff [left right fl fr]
+(defn diff 
+ ([left right fl fr]
   (let 
     [both 
      (filter (comp not nil?) 
@@ -14,9 +15,11 @@
                  right))
              left)))
     
-     onlyleft '()
-     onlyright '()] 
-   {:both both :onlyleft onlyleft :onlyright onlyright}))  
+     onlyleft  (remove (set  (map :leftnode both)) left)
+     onlyright (remove (set  (map :rightnode both)) right)] 
+   {:both both :onlyleft onlyleft :onlyright onlyright}))
+ ([left right] (diff left right identity identity))
+ ([left right f] (diff left right f f)))  
         
 
 (defn demo []
@@ -24,14 +27,13 @@
           right [4 5 6 7 8]
           fl :k
           fr identity]
-        (diff left right fl fr)))
+        (diff left right fl fr )))
 
-;Todo: onlyleft  onlyright
 ; user=> (pprint (demo))
 ; {:both
 ;  ({:leftnode {:k 4}, :rightnode 4}
 ;   {:leftnode {:k 5}, :rightnode 5}
 ;   {:leftnode {:k 6}, :rightnode 6}),
-;  :onlyleft (),
-;  :onlyright ()}
+;  :onlyleft ({:k 2} {:k 3}),
+;  :onlyright (7 8)}
 ; nil
